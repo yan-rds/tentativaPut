@@ -54,6 +54,24 @@ public class CarroController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
+    @DeleteMapping ("/{nomeDoCarro}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public CarroDTO deletarCarro (@PathVariable String nomeDoCarro){
+        CarroDTO carroADeletar = null;
+        for (CarroDTO carro : concessionaria){
+            if (carro.getModelo().equalsIgnoreCase(nomeDoCarro)){
+                carroADeletar = carro;
+            }
+        }
+        if (carroADeletar != null){
+            concessionaria.remove(carroADeletar);
+            return carroADeletar;
+        }
+        else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
 
 }
